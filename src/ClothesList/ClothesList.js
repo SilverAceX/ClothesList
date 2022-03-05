@@ -53,10 +53,9 @@ export const ClothesList = (props) => {
 
     return (
         <div>
-            <label>
-                Filter:
-                <input type="text" onChange={(e) => setFilter(e.target.value)} />
-            </label>
+            <Form.Group className="mb-3">
+                <Form.Control type="text" onChange={(e) => setFilter(e.target.value)} placeholder="Filter" />
+            </Form.Group>
 
             <ListGroup as="ul" className="listClothes">
                 {ListClothes.filter(filterfunction).map((clothing) => (
