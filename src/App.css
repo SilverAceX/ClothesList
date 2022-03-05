@@ -36,3 +36,14 @@
     transform: rotate(360deg);
   }
 }
+
+.cStore {
+  background-color: rgb(11, 94, 215);
+}
+
+.sName{
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 1.75em;
+  color: white;
+  padding: 0.125em 1em;
+}

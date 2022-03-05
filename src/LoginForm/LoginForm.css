@@ -1,0 +1,10 @@
+.login {
+    margin: 5em;
+    min-width: 50%;
+    display: flex;
+    justify-content: center;
+}
+
+.sbtn {
+    margin-left: 5em;
+}

@@ -1,0 +1,21 @@
+
+.listClothes {
+    padding: 1.5em 5em;
+}
+
+.mb-3{
+    padding: 1em 5em;
+}
+
+.sbtn {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1.5em;
+}
+
+.itemName {
+    text-align: center;
+    background-color: rgb(11, 94, 215) !important;
+    color: white !important;
+}

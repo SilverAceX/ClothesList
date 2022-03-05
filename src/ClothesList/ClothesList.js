@@ -1,9 +1,16 @@
 import React, { Fragment, useState } from 'react';
-import { AddClothes } from '../AddClothes/AddClothes';
 import { RoleWrapper } from '../RoleWrapper/RoleWrapper';
+import { Form, Button, ListGroup } from 'react-bootstrap';
+import './ClothesList.css';
 
 export const ClothesList = (props) => {
 
+    const [aName, sName] = useState("");
+    const [addPrice, setPrice] = useState(0);
+    const [addDesc, setDesc] = useState("");
+    const [addStock, setStock] = useState(0);
+    const [checkFilter, setFilter] = useState('');
+    const [Refresh, setRefresh] = useState(false);
 
     let hardClothes = [
         { id: 342, cname: "T-shirts", price: 25.0, description: "Black and white t-shirt.", stock: 50 },
@@ -15,8 +22,7 @@ export const ClothesList = (props) => {
     ];
     const [ListClothes, setClothes] = useState(hardClothes);
 
-    console.log(typeof(ListClothes))
-    const [checkFilter, setFilter] = useState('');
+
 
     const filterfunction = (item) => {
         if (item.cname.startsWith(checkFilter)) {
@@ -26,71 +32,74 @@ export const ClothesList = (props) => {
         }
     };
 
-    const [addName, setName] = useState("");
-    const [addPrice, setPrice] = useState(0);
-    const [addDesc, setDesc] = useState("");
-    const [addStock, setStock] = useState(0);
 
-    console.log(ListClothes);
+
+
     const addItem = (ListClothes) => {
+        setClothes(ListClothes);
         let contains = false;
-        for (let x = 0; x < hardClothes.length; x++) {
-            for (let i in x[0]) {
-                if (i.cname === addName) {
-                    console.log('Hi');
-                    contains = true;
-                    i.stock += addStock;
-                }
+        for (let x = 0; x < ListClothes.length; x++) {
+            if (ListClothes[x].cname === aName) {
+                contains = true;
+                ListClothes[x].stock = parseInt(ListClothes[x].stock) + parseInt(addStock);
             }
         }
-
         if (!contains) {
-            const newArray = { id: Math.floor(Math.random() * 999), name: {addName}, price: addPrice, description: addDesc, stock: addStock };
-            hardClothes.push(newArray);
-            setClothes(hardClothes);
-
-
+            ListClothes.push({ id: Math.floor(Math.random() * 999), cname: aName, price: addPrice, description: addDesc, stock: addStock })
         }
-
+        setClothes(ListClothes);
+        setRefresh(!Refresh)
     }
+
     return (
         <div>
-            <h1>Fashion Store Clothing</h1>
             <label>
                 Filter:
                 <input type="text" onChange={(e) => setFilter(e.target.value)} />
             </label>
-            <ul className="listClothes">
-                {ListClothes.filter(filterfunction).map((student) => (
+
+            <ListGroup as="ul" className="listClothes">
+                {ListClothes.filter(filterfunction).map((clothing) => (
                     <>
-                        <li className="clothingItem">{student.id}</li>
-                        <li className="clothingItem">{student.cname}</li>
-                        <li className="clothingItem">{student.price}</li>
-                        <li className="clothingItem">{student.description}</li>
-                        <li className="clothingItem">{student.stock}</li>
+                        <ListGroup.Item as="li" className="itemName">{clothing.cname}</ListGroup.Item>
+                        <ListGroup.Item as="li" className="clothingItem">ID: {clothing.id}</ListGroup.Item>
+                        <ListGroup.Item as="li" className="clothingItem">Price: ${clothing.price}</ListGroup.Item>
+                        <ListGroup.Item as="li" className="clothingItem">Description: {clothing.description}</ListGroup.Item>
+                        <ListGroup.Item as="li" className="clothingItem">Number in stock: {clothing.stock}</ListGroup.Item>
+                        <br />
                     </>
                 ))}
-            </ul>
+            </ListGroup>
 
             <RoleWrapper rolesAllowed={['admin']} currentRole={props.role}>
-                <div>
-                    <form action="">
-                        <label>Name:
-                            <input type="text" onChange={(e) => setName(e.target.value)} />
-                        </label>
-                        <label>Price
-                            <input type="text" onChange={(e) => setPrice(e.target.value)} />
-                        </label>
-                        <label>Description
-                            <input type="text" onChange={(e) => setDesc(e.target.value)} />
-                        </label>
-                        <label>Stock
-                            <input type="text" onChange={(e) => setStock(e.target.value)} />
-                        </label>
-                    </form>
-                    <button onClick={addItem}>Add Item</button>
-                </div>
+                <Form>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Name</Form.Label>
+                        <Form.Control type="text" onChange={(e) => sName(e.target.value)} placeholder="Enter item" />
+                    </Form.Group>
+
+                    <Form.Group className="mb-3">
+                        <Form.Label>Price</Form.Label>
+                        <Form.Control type="text" onChange={(e) => setPrice(e.target.value)} placeholder="Price" />
+                    </Form.Group>
+
+                    <Form.Group className="mb-3">
+                        <Form.Label>Description</Form.Label>
+                        <Form.Control type="text" onChange={(e) => setDesc(e.target.value)} placeholder="Item Description" />
+                    </Form.Group>
+
+                    <Form.Group className="mb-3">
+                        <Form.Label>Stock</Form.Label>
+                        <Form.Control type="text" onChange={(e) => setStock(e.target.value)} placeholder="Item Stock" />
+                    </Form.Group>
+
+                    <Button className='sbtn' variant="primary" onClick={() => addItem(ListClothes)}>
+                        Submit
+                    </Button>
+                </Form>
             </RoleWrapper>
+
         </div>
     )
-}
+
+};
