@@ -1,24 +1,19 @@
-import logo from './logo.svg';
+import { ClothesList } from './ClothesList/ClothesList';
+import { LoginForm } from './LoginForm/LoginForm';
+import { Fragment, useState } from 'react';
 import './App.css';
+import { RoleWrapper } from './RoleWrapper/RoleWrapper';
 
 function App() {
+
+  const [role, setRole] = useState('');
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <LoginForm setRole={setRole} />
+      <RoleWrapper rolesAllowed={['admin', 'visitor']} currentRole={role} >
+        <ClothesList role={role} />
+      </RoleWrapper>
+    </>
   );
 }
 
