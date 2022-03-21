@@ -32,9 +32,6 @@ export const ClothesList = (props) => {
         }
     };
 
-
-
-
     const addItem = (ListClothes) => {
         setClothes(ListClothes);
         let contains = false;
@@ -49,6 +46,8 @@ export const ClothesList = (props) => {
         }
         setClothes(ListClothes);
         setRefresh(!Refresh)
+        const form = document.getElementById("itemForm");
+        form.reset();
     }
 
     return (
@@ -71,7 +70,7 @@ export const ClothesList = (props) => {
             </ListGroup>
 
             <RoleWrapper rolesAllowed={['admin']} currentRole={props.role}>
-                <Form>
+                <Form id='itemForm'>
                     <Form.Group className="mb-3">
                         <Form.Label>Name</Form.Label>
                         <Form.Control type="text" onChange={(e) => sName(e.target.value)} placeholder="Enter item" />
