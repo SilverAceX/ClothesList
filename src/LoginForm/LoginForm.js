@@ -33,7 +33,7 @@ export const LoginForm = ({ setRole }) => {
                     <Form.Label>Password</Form.Label>
                     <Form.Control type="password" onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
                 </Form.Group>
-                <Button variant="primary" className='sbtn' onClick={selectRole}>
+                <Button disabled={username.length===0 || password.length===0} variant="primary" className='sbtn' onClick={selectRole}>
                     Log In
                 </Button>
             </Form>
